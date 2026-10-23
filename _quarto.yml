@@ -7,19 +7,22 @@ book:
   date: "10/21/2026"
   chapters:
     - index.qmd
-    - intro.qmd
-    - summary.qmd
+    - plan.qmd
     - references.qmd
 
 bibliography: references.bib
 
+number-depth: 2
+
 format:
   html:
+    fig-format: svg
     theme:
       - cosmo
       - brand
   pdf:
     documentclass: scrreprt
+    fig-format: pdf
 
 
 
