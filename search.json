@@ -10,33 +10,93 @@
     ]
   },
   {
-    "objectID": "intro.html",
-    "href": "intro.html",
-    "title": "1  Introduction",
+    "objectID": "plan.html",
+    "href": "plan.html",
+    "title": "1  Plan",
     "section": "",
-    "text": "This is a book created from markdown and executable code.\nSee Knuth (1984) for additional discussion of literate programming.\n\n\n\n\nKnuth, Donald E. 1984. “Literate Programming.” Comput. J. (USA) 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97.",
+    "text": "1.1 Necessary Mathematical Background\nThe paper Residual-based Chebyshev filtered subspace iteration investigates how to compute a selected set of eigenvalues and eigenvectors of very large matrices efficiently.\nThe starting point is the generalized Hermitian eigenvalue problem\n\\[\nAx = \\lambda B x\n\\]\nwhere \\(A\\) and \\(B\\) are Hermitian, and \\(B\\) is positive definite. The standard eigenproblem \\(Ax=\\lambda x\\) is the special case \\(B=I\\).\nIts objective is to compute the eigenvectors corresponding to a relatively small number of the lowest eigenvalues.\nFor very large sparse matrices, computing every eigenvector would be unnecessarily expensive.\nThe authors investigate a method called Chebyshev-filtered subspace iteration (ChFSI).\nThe key idea is to construct a subspace that increasingly concentrates on the desired eigenvectors. Chebyshev polynomials provide an efficient way of separating the wanted and unwanted spectral components.\nThe problem is that ChFSI can lose convergence accuracy when the matrix-vector products used during filtering are approximate.\nSuch approximations are attractive because they can make the computation cheaper—for example, through low-precision arithmetic or inexpensive approximations of \\(B^{-1}\\).\nThe paper proposes a reformulation called R-ChFSI, which computes the polynomial recurrence in terms of residuals rather than directly filtering eigenvector estimates.\nThe essential numerical idea is that the relevant residuals become smaller as the eigenvector estimates improve. This allows the errors introduced by approximate operations to decrease during convergence rather than persisting at approximately the same magnitude.\nThe authors establish theoretical error bounds and investigate the resulting method on both controlled matrices and large-scale electronic-structure problems.",
     "crumbs": [
-      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Introduction</span>"
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Plan</span>"
     ]
   },
   {
-    "objectID": "summary.html",
-    "href": "summary.html",
-    "title": "2  Summary",
+    "objectID": "plan.html#necessary-mathematical-background",
+    "href": "plan.html#necessary-mathematical-background",
+    "title": "1  Plan",
     "section": "",
-    "text": "In summary, this book has no content whatsoever.",
+    "text": "Level 1. Eigenvalues and Hermitian Matrices\nEigenvalues, eigenvectors, the spectral theorem, orthogonality, positive-definite matrices, and generalized eigenvalue problems.\n\nWhy do Hermitian matrices have an orthonormal basis of eigenvectors and why does that permit spectral filtering?\n\n\n\nLevel 2. Numerical eigenvalue algorithms\nPower iteration, inverse iteration, subspace iteration, Rayleigh quotients, Rayleigh-Ritz projection, Ritz values nad Ritz vectors.\n\nWhy an algorithm works with an evolving subspace instead of computing the entire eigendecomposition?\n\n\n\nLevel 3. Chebyshev polynomial filtering\nPolynomial recurrences, spectral transformations, polynomial filtering, spectral gaps and convergence of invariant subspaces\n\nWhy does applying a carefully chosen polynomial to a matrix amplifies its desired eigenspace relative to the unwanted one?\n\n\n\nLevel 4. Numerical inexactness and the residual-based formulation\nEigenpair residuals, perturbations of matrix-vector products, error propagation, convergence stagnation and the new recurrence\n\nMoving from the established backgrouind to the authors’ research\n\n\n\nLevel 5. Advanced analysis and application background\nPrinciples angles between subspaces, detailed convergence proofs, density functional theory, finite-element overlap matrices, GPU implementationi and distributed sparse matrix operations.",
     "crumbs": [
-      "<span class='chapter-number'>2</span>  <span class='chapter-title'>Summary</span>"
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Plan</span>"
     ]
   },
   {
-    "objectID": "references.html",
-    "href": "references.html",
-    "title": "References",
-    "section": "",
-    "text": "Knuth, Donald E. 1984. “Literate Programming.” Comput.\nJ. (USA) 27 (2): 97–111. https://doi.org/10.1093/comjnl/27.2.97.",
+    "objectID": "plan.html#concrete-mathematical-path",
+    "href": "plan.html#concrete-mathematical-path",
+    "title": "1  Plan",
+    "section": "1.2 Concrete Mathematical Path",
+    "text": "1.2 Concrete Mathematical Path\nStart with a very simple eigenvalue problem.\nFor a matrix \\(A\\), an approximate eigenpair \\((\\widetilde\\lambda,\\widetilde x)\\) has residual \\[\nr=A\\widetilde x-\\widetilde\\lambda\\widetilde x.\n\\]\nFor the generalized problem, the residual is \\[\nr=A\\widetilde x-\\widetilde\\lambda B\\widetilde x.\n\\]\nAn exact eigenpair has zero residual.\nThis gives us a natural way to assess the quality of an approximate eigenpair.\nNow suppose you want to find several eigenvectors simultaneously. Rather than working with just one vector, you work with a matrix \\(X\\) whose columns span a candidate subspace.\nThat leads to subspace iteration.\nThe next important idea is that for a Hermitian matrix with eigendecomposition \\[\nA=Q\\Lambda Q^*,\n\\]\napplying a polynomial to the matrix gives \\[\np(A)=Qp(\\Lambda)Q^*.\n\\]\nIn other words, the polynomial acts on the eigenvalues while preserving the eigenvectors.\nThis is the mathematical foundation of polynomial spectral filtering.\nChebyshev polynomials are useful because they can strongly amplify selected spectral components relative to others, using an inexpensive recurrence.\nOnly after understanding these ideas would I investigate the authors’ residual-based reformulation.\nTheir analysis provides an error bound whose essential structure is \\[\n\\|\\Delta_k^{(i)}\\|\n\\leq\nC_k\\|R^{(i)}\\|,\n\\]\nwhere \\(R^{(i)}\\) represents the current eigenpair residual and \\(C_k\\) summarizes factors involving approximation quality and filter parameters.\nCompare that with an error bound for traditional filtering that does not necessarily shrink with the current residual.\n\n\n\n\n\n\nThe dependence on the residual is the mathematical heart of the paper",
     "crumbs": [
-      "References"
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Plan</span>"
+    ]
+  },
+  {
+    "objectID": "plan.html#a-possible-20-minute-presentation",
+    "href": "plan.html#a-possible-20-minute-presentation",
+    "title": "1  Plan",
+    "section": "1.3 A Possible 20-minute presentation",
+    "text": "1.3 A Possible 20-minute presentation\n\n\n\n\n\n\n\n\nFigure 1.2: Proposed structure and time allocation for the presentation.\n\n\n\n\n\nA potential difficulty: you have only about six minutes to establish subspace iteration and Chebyshev filtering before discussing the new algorithm.\nThe paper’s Figures 1 and 2, on pages 13–14, would be particularly useful evidence: they compare convergence of traditional ChFSI and R-ChFSI with different amounts of approximation error.\nIn the controlled tests, traditional filtering stagnates while the residual-based version continues toward much smaller residuals. The paper subsequently tests the method on large DFT eigenproblems and reports filtering speedups up to 2.7× and full eigensolver speedups up to 2.1× in its benchmark configurations.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Plan</span>"
+    ]
+  },
+  {
+    "objectID": "plan.html#a-possible-10-page-report",
+    "href": "plan.html#a-possible-10-page-report",
+    "title": "1  Plan",
+    "section": "1.4 A possible 10-page report",
+    "text": "1.4 A possible 10-page report\n\n\n\nTable 1.1: Proposed structure of the seminar report\n\n\n\n\n\n\n\n\n\n\nSection\nApprox. length\nSubject\n\n\n\n\n1. Introduction and motivation\n1 page\nLarge eigenproblems and motivation for approximate computation\n\n\n2. Mathematical preliminaries\n1.5 pages\nGeneralized Hermitian eigenproblems, residuals, subspaces and Ritz approximation\n\n\n3. Conventional ChFSI\n1.5 pages\nPolynomial filtering and iterative eigenspace approximation\n\n\n4. Limitations under inexact operations\n1 page\nError propagation and convergence stagnation\n\n\n5. Residual-based R-ChFSI\n2 pages\nNew recurrence, error dependence and convergence results\n\n\n6. Numerical experiments and hardware efficiency\n2 pages\nControlled experiments, DFT problems and low-precision performance\n\n\n7. Critical discussion and conclusion\n1 page\nAssumptions, limitations and significance",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Plan</span>"
+    ]
+  },
+  {
+    "objectID": "plan.html#preparation-roadmap",
+    "href": "plan.html#preparation-roadmap",
+    "title": "1  Plan",
+    "section": "1.5 Preparation Roadmap",
+    "text": "1.5 Preparation Roadmap\nI would approach the unfamiliar mathematics incrementally, not try to read the entire paper and every unfamiliar reference at once.\n\nEigenvalue fundamentals — approximately 1 week.\nReview Hermitian matrices, spectral decomposition, Rayleigh quotients, eigenpair residuals and generalized eigenvalue problems. Work through small matrix examples.\nNumerical eigenvalue methods — approximately 1–2 weeks.\nLearn power iteration, subspace iteration and Rayleigh–Ritz projection. Implement a small subspace iteration in Python or C++ and compare against a library eigensolver.\nChebyshev filtering — approximately 1 week.\nStudy Chebyshev polynomials, spectral mapping and polynomial filters. Experiment with filtering vectors in a small diagonal or symmetric matrix problem.\nRead the central theory — approximately 1–2 weeks.\nWork through Sections 2 and 3 of the paper. Understand the original recurrence, the proposed residual-based recurrence, and the role of approximation errors in the convergence analysis.\nStudy the experiments — approximately 1 week.\nExamine how the authors construct controlled perturbations, interpret the convergence figures, and relate FP32/TF32 computation and BF16 communication to hardware performance.\nSynthesis and presentation preparation.\nDevelop the report, select a manageable amount of mathematical detail, and build an explanation that is understandable without requiring the audience to know numerical eigenvalue theory in advance.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Plan</span>"
+    ]
+  },
+  {
+    "objectID": "plan.html#schedule",
+    "href": "plan.html#schedule",
+    "title": "1  Plan",
+    "section": "1.6 Schedule",
+    "text": "1.6 Schedule\n\n\n\nTable 1.2: Preparation schedule for Paper 6\n\n\n\n\n\n\n\n\n\nPeriod\nTasks\n\n\n\n\nOct 23 – Nov 1\nEigenvalue fundamentals, introductory subspace iteration, assess mathematical feasibility\n\n\nNov 2–15\nRayleigh–Ritz and Chebyshev polynomial filtering\n\n\nNov 16–29\nRead Sections 2–3, work through residual recurrence and principal error bounds\n\n\nNov 30 – Dec 13\nAnalyze numerical experiments, hardware aspects and limitations\n\n\nDec 14–27\nWrite and revise report; establish presentation narrative\n\n\nDec 28 – Jan 10\nDevelop algorithm diagrams, mathematical explanations and slides\n\n\nJan 11–18\nRehearse, simplify technical sections, prepare for questions\n\n\nJan 19\nPresentation",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Plan</span>"
+    ]
+  },
+  {
+    "objectID": "plan.html#understanding-checklist",
+    "href": "plan.html#understanding-checklist",
+    "title": "1  Plan",
+    "section": "1.7 Understanding checklist",
+    "text": "1.7 Understanding checklist\n\nExplain the generalized eigenvalue problem \\(Ax = \\lambda B x\\) and the meaning of the eigenpair residual\nDescribe why subspace iteration is useful when only a few eigenpairs are wanted\nUnderstand how a polynomial \\(p(A)\\) changes the relative sizes of spectral components\nExplain the purpose of Chebyshev filtering at a conceptual level\nExplain why filtering residuals might permit more accurate solutions approximate operator applications",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Plan</span>"
+    ]
+  },
+  {
+    "objectID": "plan.html#independent-computational-investigation",
+    "href": "plan.html#independent-computational-investigation",
+    "title": "1  Plan",
+    "section": "1.8 Independent Computational Investigation",
+    "text": "1.8 Independent Computational Investigation\nImplement ordinary subspace iteration and plynomial filtering for a manageable symmetric matrix, introduce controlled perturbations into matrix-vector products, and observe the convergence behavior.\nA full R-ChFSI is a considerably larger undertaking.",
+    "crumbs": [
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>Plan</span>"
     ]
   }
 ]

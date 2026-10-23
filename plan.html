@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.37">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>1&nbsp; Plan – Hardware Aware Scientific Computing</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./references.html" rel="next">
+<link href="./index.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7f8f88aac4f3542376d5c11b86a4c14d.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-251915186e5ac48a2a36efd978de2bb8.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./plan.html"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Plan</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Hardware Aware Scientific Computing</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./plan.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Plan</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#necessary-mathematical-background" id="toc-necessary-mathematical-background" class="nav-link active" data-scroll-target="#necessary-mathematical-background"><span class="header-section-number">1.1</span> Necessary Mathematical Background</a>
+  <ul class="collapse">
+  <li><a href="#level-1.-eigenvalues-and-hermitian-matrices" id="toc-level-1.-eigenvalues-and-hermitian-matrices" class="nav-link" data-scroll-target="#level-1.-eigenvalues-and-hermitian-matrices">Level 1. Eigenvalues and Hermitian Matrices</a></li>
+  <li><a href="#level-2.-numerical-eigenvalue-algorithms" id="toc-level-2.-numerical-eigenvalue-algorithms" class="nav-link" data-scroll-target="#level-2.-numerical-eigenvalue-algorithms">Level 2. Numerical eigenvalue algorithms</a></li>
+  <li><a href="#level-3.-chebyshev-polynomial-filtering" id="toc-level-3.-chebyshev-polynomial-filtering" class="nav-link" data-scroll-target="#level-3.-chebyshev-polynomial-filtering">Level 3. Chebyshev polynomial filtering</a></li>
+  <li><a href="#level-4.-numerical-inexactness-and-the-residual-based-formulation" id="toc-level-4.-numerical-inexactness-and-the-residual-based-formulation" class="nav-link" data-scroll-target="#level-4.-numerical-inexactness-and-the-residual-based-formulation">Level 4. Numerical inexactness and the residual-based formulation</a></li>
+  <li><a href="#level-5.-advanced-analysis-and-application-background" id="toc-level-5.-advanced-analysis-and-application-background" class="nav-link" data-scroll-target="#level-5.-advanced-analysis-and-application-background">Level 5. Advanced analysis and application background</a></li>
+  </ul></li>
+  <li><a href="#concrete-mathematical-path" id="toc-concrete-mathematical-path" class="nav-link" data-scroll-target="#concrete-mathematical-path"><span class="header-section-number">1.2</span> Concrete Mathematical Path</a></li>
+  <li><a href="#a-possible-20-minute-presentation" id="toc-a-possible-20-minute-presentation" class="nav-link" data-scroll-target="#a-possible-20-minute-presentation"><span class="header-section-number">1.3</span> A Possible 20-minute presentation</a></li>
+  <li><a href="#a-possible-10-page-report" id="toc-a-possible-10-page-report" class="nav-link" data-scroll-target="#a-possible-10-page-report"><span class="header-section-number">1.4</span> A possible 10-page report</a></li>
+  <li><a href="#preparation-roadmap" id="toc-preparation-roadmap" class="nav-link" data-scroll-target="#preparation-roadmap"><span class="header-section-number">1.5</span> Preparation Roadmap</a></li>
+  <li><a href="#schedule" id="toc-schedule" class="nav-link" data-scroll-target="#schedule"><span class="header-section-number">1.6</span> Schedule</a></li>
+  <li><a href="#understanding-checklist" id="toc-understanding-checklist" class="nav-link" data-scroll-target="#understanding-checklist"><span class="header-section-number">1.7</span> Understanding checklist</a></li>
+  <li><a href="#independent-computational-investigation" id="toc-independent-computational-investigation" class="nav-link" data-scroll-target="#independent-computational-investigation"><span class="header-section-number">1.8</span> Independent Computational Investigation</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Plan</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>The paper <strong>Residual-based Chebyshev filtered subspace iteration</strong> investigates how to compute a selected set of eigenvalues and eigenvectors of very large matrices efficiently.</p>
+<p>The starting point is the generalized Hermitian eigenvalue problem</p>
+<p><span class="math display">\[
+Ax = \lambda B x
+\]</span></p>
+<p>where <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> are Hermitian, and <span class="math inline">\(B\)</span> is positive definite. The standard eigenproblem <span class="math inline">\(Ax=\lambda x\)</span> is the special case <span class="math inline">\(B=I\)</span>.</p>
+<p>Its objective is to compute the eigenvectors corresponding to a relatively small number of the lowest eigenvalues.</p>
+<p>For very large sparse matrices, computing every eigenvector would be unnecessarily expensive.</p>
+<p>The authors investigate a method called <strong>Chebyshev-filtered subspace iteration (ChFSI)</strong>.</p>
+<p>The key idea is to construct a subspace that increasingly concentrates on the desired eigenvectors. Chebyshev polynomials provide an efficient way of separating the wanted and unwanted spectral components.</p>
+<p>The problem is that ChFSI can lose convergence accuracy when the matrix-vector products used during filtering are approximate.</p>
+<p>Such approximations are attractive because they can make the computation cheaper—for example, through low-precision arithmetic or inexpensive approximations of <span class="math inline">\(B^{-1}\)</span>.</p>
+<p>The paper proposes a reformulation called <strong>R-ChFSI</strong>, which computes the polynomial recurrence in terms of residuals rather than directly filtering eigenvector estimates.</p>
+<p>The essential numerical idea is that the relevant residuals become smaller as the eigenvector estimates improve. This allows the errors introduced by approximate operations to decrease during convergence rather than persisting at approximately the same magnitude.</p>
+<p>The authors establish theoretical error bounds and investigate the resulting method on both controlled matrices and large-scale electronic-structure problems.</p>
+<div class="cell" data-layout-align="center">
+<div class="cell-output-display">
+<div id="fig-chfsi-comparison" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-chfsi-comparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div>
+<pre class="mermaid mermaid-js" data-label="fig-chfsi-comparison">flowchart LR
+    subgraph traditional["Traditional ChFSI"]
+        direction TB
+        A1["Filter eigenvector estimates directly"]
+        A2["Approximate operator introduces errors"]
+        A3["Errors can persist and cause stagnation"]
+
+        A1 --&gt; A2 --&gt; A3
+    end
+
+    subgraph residual["Residual-based R-ChFSI"]
+        direction TB
+        B1["Construct the filter recurrence using residuals"]
+        B2["Residuals shrink as convergence improves"]
+        B3["Approximation errors can shrink with them"]
+
+        B1 --&gt; B2 --&gt; B3
+    end
+
+    classDef plain fill:transparent,stroke:transparent,color:#333;
+    class A1,A2,A3,B1,B2,B3 plain;
+
+    style traditional fill:transparent,stroke:#aaa,stroke-width:1px
+    style residual fill:transparent,stroke:#aaa,stroke-width:1px
+</pre>
+</div>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-chfsi-comparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.1: The essential algorithmic contrast between traditional ChFSI and residual-based R-ChFSI.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<section id="necessary-mathematical-background" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="necessary-mathematical-background"><span class="header-section-number">1.1</span> Necessary Mathematical Background</h2>
+<section id="level-1.-eigenvalues-and-hermitian-matrices" class="level3">
+<h3 class="anchored" data-anchor-id="level-1.-eigenvalues-and-hermitian-matrices">Level 1. Eigenvalues and Hermitian Matrices</h3>
+<p>Eigenvalues, eigenvectors, the spectral theorem, orthogonality, positive-definite matrices, and generalized eigenvalue problems.</p>
+<blockquote class="blockquote">
+<p>Why do Hermitian matrices have an orthonormal basis of eigenvectors and why does that permit spectral filtering?</p>
+</blockquote>
+</section>
+<section id="level-2.-numerical-eigenvalue-algorithms" class="level3">
+<h3 class="anchored" data-anchor-id="level-2.-numerical-eigenvalue-algorithms">Level 2. Numerical eigenvalue algorithms</h3>
+<p>Power iteration, inverse iteration, subspace iteration, Rayleigh quotients, Rayleigh-Ritz projection, Ritz values nad Ritz vectors.</p>
+<blockquote class="blockquote">
+<p>Why an algorithm works with an evolving subspace instead of computing the entire eigendecomposition?</p>
+</blockquote>
+</section>
+<section id="level-3.-chebyshev-polynomial-filtering" class="level3">
+<h3 class="anchored" data-anchor-id="level-3.-chebyshev-polynomial-filtering">Level 3. Chebyshev polynomial filtering</h3>
+<p>Polynomial recurrences, spectral transformations, polynomial filtering, spectral gaps and convergence of invariant subspaces</p>
+<blockquote class="blockquote">
+<p>Why does applying a carefully chosen polynomial to a matrix amplifies its desired eigenspace relative to the unwanted one?</p>
+</blockquote>
+</section>
+<section id="level-4.-numerical-inexactness-and-the-residual-based-formulation" class="level3">
+<h3 class="anchored" data-anchor-id="level-4.-numerical-inexactness-and-the-residual-based-formulation">Level 4. Numerical inexactness and the residual-based formulation</h3>
+<p>Eigenpair residuals, perturbations of matrix-vector products, error propagation, convergence stagnation and the new recurrence</p>
+<blockquote class="blockquote">
+<p>Moving from the established backgrouind to the authors’ research</p>
+</blockquote>
+</section>
+<section id="level-5.-advanced-analysis-and-application-background" class="level3">
+<h3 class="anchored" data-anchor-id="level-5.-advanced-analysis-and-application-background">Level 5. Advanced analysis and application background</h3>
+<p>Principles angles between subspaces, detailed convergence proofs, density functional theory, finite-element overlap matrices, GPU implementationi and distributed sparse matrix operations.</p>
+</section>
+</section>
+<section id="concrete-mathematical-path" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="concrete-mathematical-path"><span class="header-section-number">1.2</span> Concrete Mathematical Path</h2>
+<p>Start with a very simple eigenvalue problem.</p>
+<p>For a matrix <span class="math inline">\(A\)</span>, an approximate eigenpair <span class="math inline">\((\widetilde\lambda,\widetilde x)\)</span> has residual <span class="math display">\[
+r=A\widetilde x-\widetilde\lambda\widetilde x.
+\]</span></p>
+<p>For the generalized problem, the residual is <span class="math display">\[
+r=A\widetilde x-\widetilde\lambda B\widetilde x.
+\]</span></p>
+<p>An exact eigenpair has zero residual.</p>
+<p>This gives us a natural way to assess the quality of an approximate eigenpair.</p>
+<p>Now suppose you want to find several eigenvectors simultaneously. Rather than working with just one vector, you work with a matrix <span class="math inline">\(X\)</span> whose columns span a candidate subspace.</p>
+<p>That leads to subspace iteration.</p>
+<p>The next important idea is that for a Hermitian matrix with eigendecomposition <span class="math display">\[
+A=Q\Lambda Q^*,
+\]</span></p>
+<p>applying a polynomial to the matrix gives <span class="math display">\[
+p(A)=Qp(\Lambda)Q^*.
+\]</span></p>
+<p>In other words, the polynomial acts on the eigenvalues while preserving the eigenvectors.</p>
+<p>This is the mathematical foundation of polynomial spectral filtering.</p>
+<p>Chebyshev polynomials are useful because they can strongly amplify selected spectral components relative to others, using an inexpensive recurrence.</p>
+<p>Only after understanding these ideas would I investigate the authors’ residual-based reformulation.</p>
+<p>Their analysis provides an error bound whose essential structure is <span class="math display">\[
+\|\Delta_k^{(i)}\|
+\leq
+C_k\|R^{(i)}\|,
+\]</span></p>
+<p>where <span class="math inline">\(R^{(i)}\)</span> represents the current eigenpair residual and <span class="math inline">\(C_k\)</span> summarizes factors involving approximation quality and filter parameters.</p>
+<p>Compare that with an error bound for traditional filtering that does not necessarily shrink with the current residual.</p>
+<div class="callout callout-style-simple callout-none no-icon">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon no-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>The dependence on the residual is the mathematical heart of the paper</p>
+</div>
+</div>
+</div>
+</section>
+<section id="a-possible-20-minute-presentation" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="a-possible-20-minute-presentation"><span class="header-section-number">1.3</span> A Possible 20-minute presentation</h2>
+<div id="cell-fig-presentation-outline" class="cell" data-execution_count="1">
+<div class="cell-output cell-output-display">
+<div id="fig-presentation-outline" class="quarto-float quarto-figure quarto-figure-center anchored" data-fig-align="center">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-presentation-outline-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="plan_files/figure-html/fig-presentation-outline-output-1.svg" class="img-fluid quarto-figure quarto-figure-center figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-presentation-outline-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;1.2: Proposed structure and time allocation for the presentation.
+</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>A potential difficulty: you have only about six minutes to establish subspace iteration and Chebyshev filtering before discussing the new algorithm.</p>
+<p>The paper’s Figures 1 and 2, on pages 13–14, would be particularly useful evidence: they compare convergence of traditional ChFSI and R-ChFSI with different amounts of approximation error.</p>
+<p>In the controlled tests, traditional filtering stagnates while the residual-based version continues toward much smaller residuals. The paper subsequently tests the method on large DFT eigenproblems and reports filtering speedups up to 2.7× and full eigensolver speedups up to 2.1× in its benchmark configurations.</p>
+</section>
+<section id="a-possible-10-page-report" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="a-possible-10-page-report"><span class="header-section-number">1.4</span> A possible 10-page report</h2>
+<div id="tbl-report-structure" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-report-structure-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1.1: Proposed structure of the seminar report
+</figcaption>
+<div aria-describedby="tbl-report-structure-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 33%">
+<col style="width: 33%">
+<col style="width: 33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Section</th>
+<th>Approx. length</th>
+<th>Subject</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1. Introduction and motivation</td>
+<td>1 page</td>
+<td>Large eigenproblems and motivation for approximate computation</td>
+</tr>
+<tr class="even">
+<td>2. Mathematical preliminaries</td>
+<td>1.5 pages</td>
+<td>Generalized Hermitian eigenproblems, residuals, subspaces and Ritz approximation</td>
+</tr>
+<tr class="odd">
+<td>3. Conventional ChFSI</td>
+<td>1.5 pages</td>
+<td>Polynomial filtering and iterative eigenspace approximation</td>
+</tr>
+<tr class="even">
+<td>4. Limitations under inexact operations</td>
+<td>1 page</td>
+<td>Error propagation and convergence stagnation</td>
+</tr>
+<tr class="odd">
+<td>5. Residual-based R-ChFSI</td>
+<td>2 pages</td>
+<td>New recurrence, error dependence and convergence results</td>
+</tr>
+<tr class="even">
+<td>6. Numerical experiments and hardware efficiency</td>
+<td>2 pages</td>
+<td>Controlled experiments, DFT problems and low-precision performance</td>
+</tr>
+<tr class="odd">
+<td>7. Critical discussion and conclusion</td>
+<td>1 page</td>
+<td>Assumptions, limitations and significance</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</section>
+<section id="preparation-roadmap" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="preparation-roadmap"><span class="header-section-number">1.5</span> Preparation Roadmap</h2>
+<p>I would approach the unfamiliar mathematics incrementally, not try to read the entire paper and every unfamiliar reference at once.</p>
+<ol type="1">
+<li><p><strong>Eigenvalue fundamentals — approximately 1 week.</strong></p>
+<p>Review Hermitian matrices, spectral decomposition, Rayleigh quotients, eigenpair residuals and generalized eigenvalue problems. Work through small matrix examples.</p></li>
+<li><p><strong>Numerical eigenvalue methods — approximately 1–2 weeks.</strong></p>
+<p>Learn power iteration, subspace iteration and Rayleigh–Ritz projection. Implement a small subspace iteration in Python or C++ and compare against a library eigensolver.</p></li>
+<li><p><strong>Chebyshev filtering — approximately 1 week.</strong></p>
+<p>Study Chebyshev polynomials, spectral mapping and polynomial filters. Experiment with filtering vectors in a small diagonal or symmetric matrix problem.</p></li>
+<li><p><strong>Read the central theory — approximately 1–2 weeks.</strong></p>
+<p>Work through Sections 2 and 3 of the paper. Understand the original recurrence, the proposed residual-based recurrence, and the role of approximation errors in the convergence analysis.</p></li>
+<li><p><strong>Study the experiments — approximately 1 week.</strong></p>
+<p>Examine how the authors construct controlled perturbations, interpret the convergence figures, and relate FP32/TF32 computation and BF16 communication to hardware performance.</p></li>
+<li><p><strong>Synthesis and presentation preparation.</strong></p>
+<p>Develop the report, select a manageable amount of mathematical detail, and build an explanation that is understandable without requiring the audience to know numerical eigenvalue theory in advance.</p></li>
+</ol>
+</section>
+<section id="schedule" class="level2" data-number="1.6">
+<h2 data-number="1.6" class="anchored" data-anchor-id="schedule"><span class="header-section-number">1.6</span> Schedule</h2>
+<div id="tbl-paper6-schedule" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-paper6-schedule-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1.2: Preparation schedule for Paper 6
+</figcaption>
+<div aria-describedby="tbl-paper6-schedule-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Period</th>
+<th>Tasks</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Oct 23 – Nov 1</strong></td>
+<td>Eigenvalue fundamentals, introductory subspace iteration, assess mathematical feasibility</td>
+</tr>
+<tr class="even">
+<td><strong>Nov 2–15</strong></td>
+<td>Rayleigh–Ritz and Chebyshev polynomial filtering</td>
+</tr>
+<tr class="odd">
+<td><strong>Nov 16–29</strong></td>
+<td>Read Sections 2–3, work through residual recurrence and principal error bounds</td>
+</tr>
+<tr class="even">
+<td><strong>Nov 30 – Dec 13</strong></td>
+<td>Analyze numerical experiments, hardware aspects and limitations</td>
+</tr>
+<tr class="odd">
+<td><strong>Dec 14–27</strong></td>
+<td>Write and revise report; establish presentation narrative</td>
+</tr>
+<tr class="even">
+<td><strong>Dec 28 – Jan 10</strong></td>
+<td>Develop algorithm diagrams, mathematical explanations and slides</td>
+</tr>
+<tr class="odd">
+<td><strong>Jan 11–18</strong></td>
+<td>Rehearse, simplify technical sections, prepare for questions</td>
+</tr>
+<tr class="even">
+<td><strong>Jan 19</strong></td>
+<td>Presentation</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+</section>
+<section id="understanding-checklist" class="level2" data-number="1.7">
+<h2 data-number="1.7" class="anchored" data-anchor-id="understanding-checklist"><span class="header-section-number">1.7</span> Understanding checklist</h2>
+<ol type="1">
+<li>Explain the generalized eigenvalue problem <span class="math inline">\(Ax = \lambda B x\)</span> and the meaning of the eigenpair residual</li>
+<li>Describe why subspace iteration is useful when only a few eigenpairs are wanted</li>
+<li>Understand how a polynomial <span class="math inline">\(p(A)\)</span> changes the relative sizes of spectral components</li>
+<li>Explain the purpose of Chebyshev filtering at a conceptual level</li>
+<li>Explain why filtering residuals might permit more accurate solutions approximate operator applications</li>
+</ol>
+</section>
+<section id="independent-computational-investigation" class="level2" data-number="1.8">
+<h2 data-number="1.8" class="anchored" data-anchor-id="independent-computational-investigation"><span class="header-section-number">1.8</span> Independent Computational Investigation</h2>
+<p>Implement ordinary subspace iteration and plynomial filtering for a manageable symmetric matrix, introduce controlled perturbations into matrix-vector products, and observe the convergence behavior.</p>
+<p>A full R-ChFSI is a considerably larger undertaking.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./index.html" class="pagination-link" aria-label="Preface">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text">Preface</span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./references.html" class="pagination-link" aria-label="References">
+        <span class="nav-page-text">References</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
